@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portfolio Status Manager</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <!-- Export reminder banner (shown when there are unsaved local changes) -->
+  <div id="dirtyBanner" class="banner" role="status" hidden>
+    <span>You have unsaved local edits. Export <strong>portfolio.json</strong> and commit it to keep the repo the source of truth.</span>
+    <button type="button" class="btn btn-sm" data-action="export-json">Export portfolio.json</button>
+    <button type="button" class="btn btn-sm btn-ghost" data-action="dismiss-banner" aria-label="Dismiss">✕</button>
+  </div>
+
+  <header class="app-header">
+    <div class="app-header__title">
+      <h1>Digitalization Portfolio</h1>
+      <p class="app-header__sub">Status report manager</p>
+    </div>
+
+    <div class="report-meta" aria-label="Report metadata">
+      <label>Week
+        <input type="number" id="metaWeek" min="1" max="53" inputmode="numeric">
+      </label>
+      <label>Date
+        <input type="date" id="metaDate">
+      </label>
+      <span class="report-meta__preview" id="metaPreview" aria-live="polite"></span>
+    </div>
+  </header>
+
+  <nav class="toolbar" aria-label="Actions">
+    <div class="toolbar__group">
+      <button type="button" class="btn btn-primary" data-action="generate-docx">⬇ Generate .docx</button>
+      <button type="button" class="btn" data-action="add-initiative">+ Add initiative</button>
+    </div>
+    <div class="toolbar__group">
+      <span class="toolbar__label">Copy prompt:</span>
+      <button type="button" class="btn btn-outline" data-action="prompt-summary">Executive summary</button>
+      <button type="button" class="btn btn-outline" data-action="prompt-actions">Action items</button>
+      <button type="button" class="btn btn-outline" data-action="prompt-email">Status email</button>
+    </div>
+    <div class="toolbar__group toolbar__group--right">
+      <button type="button" class="btn btn-ghost" data-action="export-json">Export JSON</button>
+      <button type="button" class="btn btn-ghost" data-action="import-json">Import JSON</button>
+      <button type="button" class="btn btn-ghost" data-action="reload-json" title="Discard local edits and reload portfolio.json from the repo">Reload from repo</button>
+      <input type="file" id="importFile" accept="application/json,.json" hidden>
+    </div>
+  </nav>
+
+  <main id="main" class="content">
+    <div id="sections"></div>
+    <p id="emptyState" class="empty-state" hidden>No initiatives yet. Use <strong>+ Add initiative</strong> to start.</p>
+  </main>
+
+  <!-- Initiative editor dialog -->
+  <dialog id="editorDialog" class="editor">
+    <form id="editorForm" method="dialog">
+      <h2 id="editorTitle">Edit initiative</h2>
+
+      <div class="field">
+        <label for="fName">Name</label>
+        <input type="text" id="fName" name="name" required>
+      </div>
+
+      <div class="field-row">
+        <div class="field">
+          <label for="fSection">Section</label>
+          <select id="fSection" name="sectionId" required></select>
+        </div>
+        <div class="field">
+          <label for="fCategory">Status category (badge colour)</label>
+          <select id="fCategory" name="statusCategory" required></select>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="fStatusLabel">Status label <span class="hint">(badge text, e.g. “Live (blocked)”, “UAT”)</span></label>
+        <input type="text" id="fStatusLabel" name="statusLabel" required>
+      </div>
+
+      <div class="field">
+        <label for="fKeySignal">Key signal <span class="hint">(one-line summary for the assessment table)</span></label>
+        <input type="text" id="fKeySignal" name="keySignal">
+      </div>
+
+      <div class="field">
+        <label for="fStatusLine">Status line <span class="hint">(the “Status: …” line in the detail section)</span></label>
+        <input type="text" id="fStatusLine" name="statusLine">
+      </div>
+
+      <div class="field">
+        <label for="fBullets">Detail bullets <span class="hint">(one per line; start a line with a Tab or two spaces for a sub-bullet)</span></label>
+        <textarea id="fBullets" name="detailBullets" rows="7"></textarea>
+      </div>
+
+      <div class="field">
+        <label for="fNextSteps">Next steps <span class="hint">(one per line)</span></label>
+        <textarea id="fNextSteps" name="nextSteps" rows="3"></textarea>
+      </div>
+
+      <div class="editor__actions">
+        <button type="button" class="btn btn-ghost" data-action="editor-cancel">Cancel</button>
+        <button type="submit" class="btn btn-primary" data-action="editor-save">Save</button>
+      </div>
+    </form>
+  </dialog>
+
+  <!-- Prompt preview dialog -->
+  <dialog id="promptDialog" class="editor">
+    <div class="prompt-view">
+      <h2 id="promptTitle">Prompt copied to clipboard</h2>
+      <p class="hint">Paste this into your Claude chat. Edit here first if you want to tweak it.</p>
+      <textarea id="promptText" rows="16" spellcheck="false"></textarea>
+      <div class="editor__actions">
+        <button type="button" class="btn btn-ghost" data-action="prompt-close">Close</button>
+        <button type="button" class="btn btn-primary" data-action="prompt-recopy">Copy again</button>
+      </div>
+    </div>
+  </dialog>
+
+  <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+
+  <script src="js/vendor/docx.min.js"></script>
+  <script src="js/prompts.js"></script>
+  <script src="js/docx-export.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,374 @@
+{
+  "report": {
+    "title": "Digitalization Portfolio — Status Report",
+    "week": 28,
+    "date": "2026-07-09"
+  },
+  "sections": [
+    { "id": "ibprom", "name": "IBPROM PLATFORM" },
+    { "id": "hr-payroll", "name": "HR PAYROLL DIGITALIZATION" },
+    { "id": "logistics", "name": "LOGISTICS & TRUCK MANAGEMENT" },
+    { "id": "sap-logistics", "name": "SAP LOGISTICS — REGULATORY DIGITIZATION" },
+    { "id": "process-automation", "name": "PROCESS AUTOMATION" },
+    { "id": "cross-system", "name": "CROSS-SYSTEM INTEGRATION" }
+  ],
+  "statusCategories": [
+    { "id": "live", "label": "Live", "color": "2E6611" },
+    { "id": "live-attn", "label": "Attention", "color": "BA7517" },
+    { "id": "in-progress", "label": "In progress", "color": "854F0B" },
+    { "id": "planned", "label": "Planned", "color": "5F5E5A" }
+  ],
+  "initiatives": [
+    {
+      "id": "ibprom-production",
+      "sectionId": "ibprom",
+      "order": 1,
+      "name": "IBPROM Production",
+      "statusCategory": "live",
+      "statusLabel": "Live",
+      "keySignal": "Over 85% digital reports KPI in 2026; stable and widely implemented",
+      "statusLine": "LIVE — Stable and widely implemented; over 85% digital reports KPI in 2026",
+      "detailBullets": [
+        "Digital reports KPI has exceeded 85% for 2026, reflecting strong and sustained adoption across production teams",
+        "Product is stable and widely implemented across the business, with no open issues at this time"
+      ],
+      "nextSteps": [
+        "Monitor KPI and adoption to sustain current performance"
+      ]
+    },
+    {
+      "id": "ibprom-topography",
+      "sectionId": "ibprom",
+      "order": 2,
+      "name": "IBPROM Topography",
+      "statusCategory": "live",
+      "statusLabel": "Live",
+      "keySignal": "100% digital reporting for ICL data; non-ICL onboarding pending",
+      "statusLine": "LIVE — 100% digital reporting for ICL data; non-ICL onboarding pending",
+      "detailBullets": [
+        "Digital reporting has reached 100% coverage for ICL-operated machines",
+        "Remaining gap: onboarding of contracted/external operator machines (non-ICL) is still pending, with no firm timeline set yet"
+      ],
+      "nextSteps": [
+        "Define an onboarding plan and timeline for non-ICL contracted operators"
+      ]
+    },
+    {
+      "id": "ibprom-geology",
+      "sectionId": "ibprom",
+      "order": 3,
+      "name": "IBPROM Geology",
+      "statusCategory": "live",
+      "statusLabel": "Live",
+      "keySignal": "Full 2026 data entry in progress",
+      "statusLine": "LIVE — Go-live executed; full 2026 data entry in progress",
+      "detailBullets": [
+        "Go-live formally executed following successful UAT and resolution of all issues from the previous rollback (machinery data inconsistencies, form usability)",
+        "Geologists are actively entering data in IBPROM and have committed to capturing all 2026 records from January onward — ensuring a complete and continuous dataset from the start of the year"
+      ],
+      "nextSteps": [
+        "Monitor adoption and data quality"
+      ]
+    },
+    {
+      "id": "ibprom-v3",
+      "sectionId": "ibprom",
+      "order": 4,
+      "name": "IBPROM v3",
+      "statusCategory": "live",
+      "statusLabel": "Live",
+      "keySignal": "Released and stable; DB schema cleanup now underway",
+      "statusLine": "LIVE — Released and stable; UAT closed successfully, full rollout complete",
+      "detailBullets": [
+        "UAT completed successfully with end users, validating new interfaces (Geology module UI) and confirming compatibility with the Power BI data model — synchronization process unaffected",
+        "Release delivered on the two extended-scope items validated during UAT:",
+        "\tProduction paper dependency: historical pane access extended to other mine roles, unlocking full digital traceability",
+        "\tTopography digital adoption: browser-based workaround validated in the real mine environment — topography supervisors now using multi-sketch tabs in production",
+        "Brigada flow validated with HR as part of the release; both HR Payroll tracks now able to build on the v3 improvements"
+      ],
+      "nextSteps": [
+        "Monitor stability post-release; support IBPROM v4 scoping for HR Payroll Miners rollout"
+      ]
+    },
+    {
+      "id": "ibprom-db-schema-cleanup",
+      "sectionId": "ibprom",
+      "order": 5,
+      "name": "IBPROM DB Schema Cleanup",
+      "statusCategory": "planned",
+      "statusLabel": "Scoped",
+      "keySignal": "Jira-tracked cleanup defined; not yet started",
+      "statusLine": "Scoped — Jira-tracked cleanup defined; not yet started",
+      "detailBullets": [
+        "Cleanup covers naming convention inconsistencies, string-stored foreign key anti-patterns, and column-name typos across multiple form tables",
+        "Fully scoped in Jira; work has not yet started"
+      ],
+      "nextSteps": [
+        "Prioritize against active IBPROM/v4 work; begin execution"
+      ]
+    },
+    {
+      "id": "ibprom-v4",
+      "sectionId": "ibprom",
+      "order": 6,
+      "name": "IBPROM v4",
+      "statusCategory": "planned",
+      "statusLabel": "Scoped",
+      "keySignal": "FSD complete; awaiting business approval and budget",
+      "statusLine": "Scoped — FSD complete; awaiting business approval and budget confirmation",
+      "detailBullets": [
+        "Functional Specification Document written and completed; main feature scoped is work instructions",
+        "Awaiting business approval of the FSD and confirmation of budget before development can start"
+      ],
+      "nextSteps": [
+        "Secure business approval; confirm budget; schedule development kickoff"
+      ]
+    },
+    {
+      "id": "ibprom-shift-handover",
+      "sectionId": "ibprom",
+      "order": 7,
+      "name": "IBPROM Shift Handover",
+      "statusCategory": "live-attn",
+      "statusLabel": "Live (low adoption)",
+      "keySignal": "MVP live but not used; scope was oversimplified",
+      "statusLine": "MVP live — released but not adopted by the business",
+      "detailBullets": [
+        "MVP released, but usage by the business has not materialized",
+        "Root cause: scope was oversimplified to accelerate delivery, resulting in a product that does not add enough value to the business as-is",
+        "Key dependencies: two contributing projects gate this initiative's value — the IBPROM – SAP HR Middleware (unlocks personnel management) and the PowerApp – IBPROM Middleware (currently in UAT)"
+      ],
+      "nextSteps": [
+        "Rescope with the value gaps identified from the MVP; align delivery with progress on both the SAP HR Middleware and PowerApp Middleware projects"
+      ]
+    },
+    {
+      "id": "geotechnical-domains-powerapp",
+      "sectionId": "ibprom",
+      "order": 8,
+      "name": "Geotechnical Domains PowerApp",
+      "statusCategory": "live-attn",
+      "statusLabel": "Live (blocked)",
+      "keySignal": "App works, but iPad enrollment blocker prevents use",
+      "statusLine": "Live — functional, but blocked from use by a device enrollment issue",
+      "detailBullets": [
+        "App itself works well; business feedback on functionality has been positive",
+        "Reporting output is not compatible with the business's current workflow — a gap identified after go-live",
+        "Blocking issue: the business uses iPads that are not enrolled in company IT, making it impossible to operate the PowerApp on those devices",
+        "Local IT has reportedly been unable to enroll the devices into the ICL cloud"
+      ],
+      "nextSteps": [
+        "Resolve iPad enrollment with local IT; revisit reporting format against the business's actual workflow"
+      ]
+    },
+    {
+      "id": "powerapp-ibprom-middleware",
+      "sectionId": "ibprom",
+      "order": 9,
+      "name": "PowerApp – IBPROM Middleware",
+      "statusCategory": "in-progress",
+      "statusLabel": "UAT",
+      "keySignal": "Dev complete; awaiting confirmation to start testing",
+      "statusLine": "UAT — development complete; awaiting confirmation to begin testing",
+      "detailBullets": [
+        "Development completed by the team",
+        "Waiting on confirmation from the development team to start UAT",
+        "Key dependency: this is another major contributing factor to the IBPROM Shift Handover project"
+      ],
+      "nextSteps": [
+        "Get confirmation from development team; schedule and begin UAT"
+      ]
+    },
+    {
+      "id": "hr-payroll-miners",
+      "sectionId": "hr-payroll",
+      "order": 1,
+      "name": "Shift Hours — Production / Miners",
+      "statusCategory": "live-attn",
+      "statusLabel": "Live (partial)",
+      "keySignal": "Rollout paused — awaiting v4",
+      "statusLine": "LIVE — Rollout still paused at 50%; IBPROM v3 now live but v4 requirements still pending",
+      "detailBullets": [
+        "Digital process stable",
+        "Rollout to remaining mine teams remains on hold — IBPROM v3 has now released, but the specific data entry controls, approval flow visibility, and cost monitoring improvements this track needs are being tracked separately for v4",
+        "A structured end-to-end review is pending to allocate responsibilities correctly: IBPROM (operational data entry controls), SAP (authoritative validations), Power BI (cost visibility and exception monitoring)",
+        "Requirements emerging from active rollout reflect genuine user pain points and are being tracked separately from the planned v4 scope"
+      ],
+      "nextSteps": [
+        "Complete system responsibility mapping; define mandatory vs. deferrable requirements; package into IBPROM v4",
+        "Target: full mine-team rollout Q2 2026, contingent on v4 delivery"
+      ]
+    },
+    {
+      "id": "hr-payroll-brigada",
+      "sectionId": "hr-payroll",
+      "order": 2,
+      "name": "Shift Hours — Brigada / Services",
+      "statusCategory": "in-progress",
+      "statusLabel": "Pilot in progress",
+      "keySignal": "Brigada pilot underway with Mine Manager",
+      "statusLine": "Pilot underway with Brigada — hybrid flow validated; SAP ingestion checked",
+      "detailBullets": [
+        "Important nuance: Brigada workflow starts on paper (partes filled by supervisors, entered centrally into IBPROM by an administrative) — digital chain runs from IBPROM entry onward through approval and SAP ingestion",
+        "Rollout strategy session held with the Brigada Mine Manager — pilot scope agreed and pilot now underway; progressive rollout to follow",
+        "Even in hybrid form, this go-live enables the Brigada Mine Manager to work with Power BI data and KPIs for the first time"
+      ],
+      "nextSteps": [
+        "Monitor pilot results; plan progressive rollout and training sessions for remaining Brigada teams"
+      ]
+    },
+    {
+      "id": "hr-payroll-fiori",
+      "sectionId": "hr-payroll",
+      "order": 3,
+      "name": "HR Payroll Fiori",
+      "statusCategory": "in-progress",
+      "statusLabel": "UAT",
+      "keySignal": "E2E test repeatedly blocked by IPQ errors",
+      "statusLine": "UAT — end-to-end test repeatedly blocked by IPQ system errors",
+      "detailBullets": [
+        "E2E test has not been completed successfully due to recurring errors in IPQ",
+        "No direct access to IPQ, which means each attempt requires scheduling user acceptance tests with real users; these sessions have repeatedly failed due to the underlying IPQ issues, not the test design",
+        "Tech teams have applied fixes after each failed round, but a full E2E pass has not yet been achieved"
+      ],
+      "nextSteps": [
+        "Get direct IPQ visibility or a dedicated diagnostic session with the tech team ahead of the next user test; avoid scheduling further live user tests until the underlying IPQ issue is confirmed resolved"
+      ]
+    },
+    {
+      "id": "truck-portal-mma-44t",
+      "sectionId": "logistics",
+      "order": 1,
+      "name": "Truck Portal MMA 44-Ton",
+      "statusCategory": "live",
+      "statusLabel": "Live",
+      "keySignal": "Phase 2 functional design open",
+      "statusLine": "LIVE — In production; Phase 2 functional design in progress",
+      "detailBullets": [
+        "Production deployment completed; the 44-ton capacity flow is live and operational",
+        "Phase 2 scope initiated — working sessions with SAP (NTT Data), Logistics, VIDMAR, and ARIPLAN underway",
+        "Four functional areas identified for Phase 2:",
+        "\tAxle management: axle count travels correctly from the reservation web to middleware, but SAP is using internal master data instead — causing inconsistencies in loading logic and downstream systems",
+        "\tLoad capacity logic: SAP axle-to-maximum-load rules need revision",
+        "\tNet weight calculation: currently done manually at the entry weighbridge — automation would eliminate errors and improve operational efficiency",
+        "\tReservation data completeness: fields available in the web (transport card, driver ID, carrier details) not always persisted in SAP — forcing logistics operators to consult external sources",
+        "Active incident under investigation: net weight not appearing in TRS.NET for a specific case — likely caused by message arrival ordering between Operational status update and LoadingInformation update; VIDMAR asked to validate"
+      ],
+      "nextSteps": [
+        "Validate SAP message ordering with VIDMAR; confirm Phase 2 functional scope with all teams; plan development start"
+      ]
+    },
+    {
+      "id": "truck-portal-cognito",
+      "sectionId": "logistics",
+      "order": 2,
+      "name": "Truck Portal — AWS Cognito Auth Migration",
+      "statusCategory": "in-progress",
+      "statusLabel": "Ready for rollout",
+      "keySignal": "Built and documented; rollout to users pending",
+      "statusLine": "Documentation complete — migration built, not yet rolled out to users",
+      "detailBullets": [
+        "Authentication migrated from the previous scheme to AWS Cognito with email-based one-time codes",
+        "User communication and supporting documentation completed in Spanish"
+      ],
+      "nextSteps": [
+        "Schedule and execute rollout to users"
+      ]
+    },
+    {
+      "id": "queue-management-system",
+      "sectionId": "logistics",
+      "order": 3,
+      "name": "Queue Management System (Suria Plant)",
+      "statusCategory": "in-progress",
+      "statusLabel": "UAT",
+      "keySignal": "UAT underway; targeting June 2026 go-live",
+      "statusLine": "UAT — Development completed; UAT underway ahead of June 2026 go-live",
+      "detailBullets": [
+        "API contract closed and mock APIs delivered by VIDMAR as committed; development completed on that foundation",
+        "Azure infrastructure session completed; VIDMAR server deployed in Azure",
+        "New state model in place: PLANNED_RESERVATION / ACTIVE_RESERVATION — handles daily queue trigger and spontaneous/EXW truck arrivals; TRS.NET remains sole source of truth",
+        "SMS confirmed as primary channel; URL-based digital confirmation adopted as the inbound reply mechanism — resolves the international SMS routing risk identified",
+        "UAT sessions in progress with VIDMAR and ICL dev team"
+      ],
+      "nextSteps": [
+        "Complete UAT sign-off; prepare for go-live",
+        "Target: June 2026 go-live"
+      ]
+    },
+    {
+      "id": "qms-public-site",
+      "sectionId": "logistics",
+      "order": 4,
+      "name": "QMS Public Site",
+      "statusCategory": "planned",
+      "statusLabel": "Scoped",
+      "keySignal": "Public wiki + docs site for QMS; scoped, not started",
+      "statusLine": "Scoped — not yet started",
+      "detailBullets": [
+        "Scope defined: a small public-facing website hosting a wiki and a set of public documents directly tied to the QMS project",
+        "Work has not yet started"
+      ],
+      "nextSteps": [
+        "Prioritize against QMS core delivery; begin build once scheduled"
+      ]
+    },
+    {
+      "id": "sap-dca-simple",
+      "sectionId": "sap-logistics",
+      "order": 1,
+      "name": "DCA Digitization — Plataforma SIMPLE Integration",
+      "statusCategory": "planned",
+      "statusLabel": "Architecture / pending gate",
+      "keySignal": "Public-URL API question delegated to SAP team; Oct 2026 deadline",
+      "statusLine": "Architecture defined — critical integration question outstanding; regulatory deadline October 2026",
+      "detailBullets": [
+        "Mandatory digitization of the Documento de Control Administrativo (DCA) applies from October 2026; architecture favors a middleware-over-SAP approach integrating with Plataforma SIMPLE, the free Ministry of Transport-backed platform",
+        "Critical open question: whether SIMPLE's Documentation API serves QR-linked documents via a public, unauthenticated URL — required by regulation. Question has been delegated to the SAP team for follow-up with SIMPLE support; no reply yet",
+        "Entity registration on SIMPLE not yet started — pending an FNMT digital representation certificate; Integration Kit download still to be requested"
+      ],
+      "nextSteps": [
+        "Follow up on the SIMPLE public-URL question; secure FNMT certificate and register the entity; download Integration Kit once registered"
+      ]
+    },
+    {
+      "id": "sal-vesta-rpa",
+      "sectionId": "process-automation",
+      "order": 1,
+      "name": "SAL VESTA Order Automation (RPA → SAP)",
+      "statusCategory": "planned",
+      "statusLabel": "Pending gate",
+      "keySignal": "Awaiting IT approval + RPA estimate",
+      "statusLine": "Functional design closed — Pending effort estimation and IT management approval to proceed",
+      "detailBullets": [
+        "Functional design (DF v3, NTT Data) reviewed, confirmed complete, and approved by business — no additional functional development required",
+        "Agreed solution: hybrid RPA + SAP approach",
+        "\tRPA monitors incoming emails, extracts data from SAL VESTA PDF orders, converts to XML, and deposits files in the designated SAP directory",
+        "\tSAP processes the XML to create sales orders automatically, including duplicate prevention and execution logging",
+        "Notification design closed: SAP sends the order PDF automatically to the requester; no custom internal notification development needed — users can consult created orders directly via standard SAP transactions",
+        "Business validation provided; development approval pending final IT management sign-off together with RPA effort estimation"
+      ],
+      "nextSteps": [
+        "Receive RPA effort estimation; complete overall cost and planning; obtain IT management approval to proceed with development"
+      ]
+    },
+    {
+      "id": "ibprom-sap-hr-middleware",
+      "sectionId": "cross-system",
+      "order": 1,
+      "name": "IBPROM – SAP HR Middleware",
+      "statusCategory": "planned",
+      "statusLabel": "Pending scope",
+      "keySignal": "Master data not synced; SAP needs to be source of truth",
+      "statusLine": "Pending scope — master data synchronization gap identified between IBPROM and SAP HR",
+      "detailBullets": [
+        "IBPROM and SAP HR are already connected via middleware for payroll data, but master data between the two systems is not synchronized",
+        "Target design: SAP master data should become the source of truth in both systems, removing the current inconsistency risk",
+        "Strategic importance: this project is a key unlock for IBPROM Shift Handover, since it enables the personnel management capability that initiative needs to deliver real value"
+      ],
+      "nextSteps": [
+        "Scope the master-data synchronization approach; align with SAP HR team on source-of-truth model; sequence against Shift Handover rescoping"
+      ]
+    }
+  ]
+}
