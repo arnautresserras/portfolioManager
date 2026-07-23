@@ -41,6 +41,7 @@
     </div>
     <div class="toolbar__group">
       <span class="toolbar__label">Copy prompt:</span>
+      <button type="button" class="btn btn-outline" data-action="prompt-goals">Suggest 3 goals</button>
       <button type="button" class="btn btn-outline" data-action="prompt-summary">Executive summary</button>
       <button type="button" class="btn btn-outline" data-action="prompt-actions">Action items</button>
       <button type="button" class="btn btn-outline" data-action="prompt-email">Status email</button>
@@ -56,6 +57,13 @@
   </nav>
 
   <main id="main" class="content">
+    <section class="goals" aria-labelledby="goalsHeading">
+      <div class="goals__head">
+        <h2 id="goalsHeading">Goals — <span id="goalsWeek"></span></h2>
+        <p class="goals__hint">Pick up to three focused goals for this week. Not printed in the .docx; they steer the Claude prompts and give you a progress check.</p>
+      </div>
+      <ol id="goalsList" class="goals__list"></ol>
+    </section>
     <div id="sections"></div>
     <p id="emptyState" class="empty-state" hidden>No initiatives yet. Use <strong>+ Add initiative</strong> to start.</p>
   </main>

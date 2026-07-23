@@ -2,7 +2,12 @@
   "report": {
     "title": "Digitalization Portfolio — Status Report",
     "week": 28,
-    "date": "2026-07-09"
+    "date": "2026-07-09",
+    "weeklyGoals": [
+      { "id": "g1", "text": "Close QMS UAT sign-off and lock the June go-live plan", "initiativeId": "queue-management-system", "done": false },
+      { "id": "g2", "text": "Get a dedicated IPQ diagnostic session booked before the next HR Fiori user test", "initiativeId": "hr-payroll-fiori", "done": false },
+      { "id": "g3", "text": "Secure business approval of the IBPROM v4 FSD and confirm budget", "initiativeId": "ibprom-v4", "done": false }
+    ]
   },
   "sections": [
     { "id": "ibprom", "name": "IBPROM PLATFORM" },

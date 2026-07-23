@@ -96,7 +96,79 @@
 
   function render() {
     renderMeta();
+    renderGoals();
     renderSections();
+  }
+
+  // Guarantee report.weeklyGoals is always exactly 3 slots with stable ids.
+  function ensureGoals() {
+    if (!state.report.weeklyGoals || !Array.isArray(state.report.weeklyGoals)) {
+      state.report.weeklyGoals = [];
+    }
+    var g = state.report.weeklyGoals;
+    for (var i = 0; i < 3; i++) {
+      if (!g[i]) g[i] = { id: "g" + (i + 1), text: "", initiativeId: "", done: false };
+      if (!g[i].id) g[i].id = "g" + (i + 1);
+      if (typeof g[i].text !== "string") g[i].text = "";
+      if (typeof g[i].initiativeId !== "string") g[i].initiativeId = "";
+      g[i].done = !!g[i].done;
+    }
+    state.report.weeklyGoals = g.slice(0, 3);
+  }
+
+  function initiativeOptions(selectedId) {
+    var opts = ['<option value=""' + (selectedId ? "" : " selected") + '>— link an initiative (optional) —</option>'];
+    (state.sections || []).forEach(function (sec) {
+      var items = itemsOf(sec.id);
+      if (!items.length) return;
+      opts.push('<optgroup label="' + esc(sec.name) + '">');
+      items.forEach(function (it) {
+        opts.push('<option value="' + esc(it.id) + '"' +
+          (it.id === selectedId ? " selected" : "") + '>' + esc(it.name) + '</option>');
+      });
+      opts.push('</optgroup>');
+    });
+    return opts.join("");
+  }
+
+  function renderGoals() {
+    ensureGoals();
+    $("#goalsWeek").textContent = "Week " + (state.report.week != null ? state.report.week : "?");
+    var list = $("#goalsList");
+    list.innerHTML = state.report.weeklyGoals.map(function (goal, idx) {
+      return '<li class="goal' + (goal.done ? " goal--done" : "") + '" data-idx="' + idx + '">' +
+        '<label class="goal__check" title="Mark achieved">' +
+          '<input type="checkbox" data-goal="done" ' + (goal.done ? "checked" : "") +
+          ' aria-label="Goal ' + (idx + 1) + ' achieved"></label>' +
+        '<div class="goal__body">' +
+          '<input type="text" class="goal__text" data-goal="text" ' +
+            'placeholder="Goal ' + (idx + 1) + '…" value="' + esc(goal.text) + '" ' +
+            'aria-label="Goal ' + (idx + 1) + ' text">' +
+          '<select class="goal__link" data-goal="initiativeId" aria-label="Goal ' + (idx + 1) + ' linked initiative">' +
+            initiativeOptions(goal.initiativeId) +
+          '</select>' +
+        '</div>' +
+      '</li>';
+    }).join("");
+  }
+
+  function onGoalInput(e) {
+    var field = e.target.dataset.goal;
+    if (!field) return;
+    var li = e.target.closest(".goal");
+    if (!li) return;
+    var idx = +li.dataset.idx;
+    var goal = state.report.weeklyGoals[idx];
+    if (!goal) return;
+    if (field === "done") {
+      goal.done = e.target.checked;
+      li.classList.toggle("goal--done", goal.done);
+    } else if (field === "text") {
+      goal.text = e.target.value;
+    } else if (field === "initiativeId") {
+      goal.initiativeId = e.target.value;
+    }
+    markDirty();
   }
 
   function renderMeta() {
@@ -105,6 +177,8 @@
     $("#metaPreview").textContent =
       "Week " + (state.report.week != null ? state.report.week : "?") +
       "  |  " + fmtDate(state.report.date);
+    var gw = $("#goalsWeek");
+    if (gw) gw.textContent = "Week " + (state.report.week != null ? state.report.week : "?");
   }
 
   function esc(s) {
@@ -547,6 +621,7 @@
         case "gh-test": return ghTest();
         case "gh-save": return ghSave();
         case "gh-clear-token": return ghClearToken();
+        case "prompt-goals": return copyPrompt("goals", "Suggested goals");
         case "prompt-summary": return copyPrompt("summary", "Executive summary");
         case "prompt-actions": return copyPrompt("actions", "Action items");
         case "prompt-email": return copyPrompt("email", "Status email");
@@ -593,6 +668,10 @@
       if (this.files && this.files[0]) importJson(this.files[0]);
       this.value = "";
     });
+
+    var goalsList = $("#goalsList");
+    goalsList.addEventListener("input", onGoalInput);
+    goalsList.addEventListener("change", onGoalInput);
 
     var host = $("#sections");
     host.addEventListener("dragstart", onDragStart);
