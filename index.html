@@ -11,7 +11,8 @@
 
   <!-- Export reminder banner (shown when there are unsaved local changes) -->
   <div id="dirtyBanner" class="banner" role="status" hidden>
-    <span>You have unsaved local edits. Export <strong>portfolio.json</strong> and commit it to keep the repo the source of truth.</span>
+    <span>You have unsaved local edits.</span>
+    <button type="button" class="btn btn-sm btn-primary" data-action="commit-github" data-gh-only hidden>Commit to GitHub</button>
     <button type="button" class="btn btn-sm" data-action="export-json">Export portfolio.json</button>
     <button type="button" class="btn btn-sm btn-ghost" data-action="dismiss-banner" aria-label="Dismiss">✕</button>
   </div>
@@ -45,9 +46,11 @@
       <button type="button" class="btn btn-outline" data-action="prompt-email">Status email</button>
     </div>
     <div class="toolbar__group toolbar__group--right">
+      <button type="button" class="btn btn-primary" data-action="commit-github" data-gh-only hidden title="Commit portfolio.json to GitHub">⇧ Commit to GitHub</button>
       <button type="button" class="btn btn-ghost" data-action="export-json">Export JSON</button>
       <button type="button" class="btn btn-ghost" data-action="import-json">Import JSON</button>
       <button type="button" class="btn btn-ghost" data-action="reload-json" title="Discard local edits and reload portfolio.json from the repo">Reload from repo</button>
+      <button type="button" class="btn btn-ghost" data-action="open-gh-settings" title="Configure GitHub sync">⚙ GitHub sync</button>
       <input type="file" id="importFile" accept="application/json,.json" hidden>
     </div>
   </nav>
@@ -123,9 +126,67 @@
     </div>
   </dialog>
 
+  <!-- GitHub sync settings dialog -->
+  <dialog id="ghDialog" class="editor">
+    <form id="ghForm" method="dialog">
+      <h2>GitHub sync</h2>
+      <p class="hint">
+        One-click commit of <strong>portfolio.json</strong> to your repo via the GitHub API —
+        no more manual export + commit. Uses a <strong>fine-grained personal access token</strong>
+        scoped to <em>Contents: Read and write</em> on this one repo. The token is stored only in
+        this browser's localStorage; it is never committed or embedded in the file.
+      </p>
+
+      <div class="field">
+        <label for="ghToken">Fine-grained token <span class="hint">(stored locally only)</span></label>
+        <input type="password" id="ghToken" name="token" autocomplete="off" spellcheck="false"
+               placeholder="github_pat_…">
+      </div>
+
+      <div class="field-row">
+        <div class="field">
+          <label for="ghOwner">Owner <span class="hint">(user or org)</span></label>
+          <input type="text" id="ghOwner" name="owner" autocomplete="off" spellcheck="false">
+        </div>
+        <div class="field">
+          <label for="ghRepo">Repository</label>
+          <input type="text" id="ghRepo" name="repo" autocomplete="off" spellcheck="false">
+        </div>
+      </div>
+
+      <div class="field-row">
+        <div class="field">
+          <label for="ghBranch">Branch</label>
+          <input type="text" id="ghBranch" name="branch" autocomplete="off" spellcheck="false" value="main">
+        </div>
+        <div class="field">
+          <label for="ghPath">File path</label>
+          <input type="text" id="ghPath" name="path" autocomplete="off" spellcheck="false" value="portfolio.json">
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="ghMessage">Commit message <span class="hint">(optional; {week}/{date} are filled in)</span></label>
+        <input type="text" id="ghMessage" name="message" autocomplete="off"
+               placeholder="Update portfolio.json — Week {week} ({date})">
+      </div>
+
+      <p id="ghStatus" class="gh-status" aria-live="polite"></p>
+
+      <div class="editor__actions gh-actions">
+        <button type="button" class="btn btn-ghost gh-actions__danger" data-action="gh-clear-token">Clear token</button>
+        <span class="gh-actions__spacer"></span>
+        <button type="button" class="btn btn-ghost" data-action="gh-cancel">Cancel</button>
+        <button type="button" class="btn btn-outline" data-action="gh-test">Test connection</button>
+        <button type="submit" class="btn btn-primary" data-action="gh-save">Save</button>
+      </div>
+    </form>
+  </dialog>
+
   <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
 
   <script src="js/vendor/docx.min.js"></script>
+  <script src="js/github-sync.js"></script>
   <script src="js/prompts.js"></script>
   <script src="js/docx-export.js"></script>
   <script src="js/app.js"></script>

@@ -422,6 +422,107 @@
     if (copied) toast(label + " prompt copied");
   }
 
+  /* ---------------- github sync ---------------- */
+
+  function refreshGhButtons() {
+    var configured = window.GitHubSync && window.GitHubSync.isConfigured();
+    $$("[data-gh-only]").forEach(function (el) { el.hidden = !configured; });
+  }
+
+  function buildCommitMessage() {
+    var tmpl = (window.GitHubSync.getConfig().message || "").trim()
+      || "Update portfolio.json — Week {week} ({date})";
+    return tmpl
+      .replace(/\{week\}/g, state.report.week != null ? state.report.week : "")
+      .replace(/\{date\}/g, state.report.date || "");
+  }
+
+  function commitToGitHub() {
+    if (!window.GitHubSync.isConfigured()) { openGhSettings(); return; }
+    normalizeOrders();
+    var json = JSON.stringify(state, null, 2);
+    toast("Committing to GitHub…");
+    window.GitHubSync.commit(json, buildCommitMessage()).then(function (res) {
+      clearDirty();
+      toast((res.created ? "Created" : "Committed") + " portfolio.json on GitHub");
+      if (res.commitUrl) {
+        var t = $("#toast");
+        t.innerHTML = "";
+        t.appendChild(document.createTextNode("Committed — "));
+        var a = document.createElement("a");
+        a.href = res.commitUrl; a.target = "_blank"; a.rel = "noopener";
+        a.textContent = "view commit"; a.style.color = "#9db4e0";
+        t.appendChild(a);
+      }
+    }).catch(function (e) {
+      toast(e.message, true);
+      console.error(e);
+    });
+  }
+
+  function openGhSettings() {
+    var cfg = window.GitHubSync.getConfig();
+    if (!cfg.owner && !cfg.repo) {
+      var d = window.GitHubSync.detect();
+      cfg.owner = d.owner; cfg.repo = d.repo;
+    }
+    $("#ghToken").value = window.GitHubSync.getToken();
+    $("#ghOwner").value = cfg.owner;
+    $("#ghRepo").value = cfg.repo;
+    $("#ghBranch").value = cfg.branch || "main";
+    $("#ghPath").value = cfg.path || "portfolio.json";
+    $("#ghMessage").value = cfg.message || "";
+    setGhStatus("");
+    $("#ghDialog").showModal();
+    $("#ghToken").focus();
+  }
+
+  function setGhStatus(msg, isErr) {
+    var el = $("#ghStatus");
+    el.textContent = msg || "";
+    el.className = "gh-status" + (isErr ? " err" : (msg ? " ok" : ""));
+  }
+
+  function persistGhFromForm() {
+    window.GitHubSync.setToken($("#ghToken").value.trim());
+    window.GitHubSync.saveConfig({
+      owner: $("#ghOwner").value.trim(),
+      repo: $("#ghRepo").value.trim(),
+      branch: $("#ghBranch").value.trim() || "main",
+      path: $("#ghPath").value.trim() || "portfolio.json",
+      message: $("#ghMessage").value.trim()
+    });
+  }
+
+  function ghSave() {
+    persistGhFromForm();
+    refreshGhButtons();
+    $("#ghDialog").close();
+    toast("GitHub sync settings saved");
+  }
+
+  function ghTest() {
+    persistGhFromForm();
+    setGhStatus("Testing…");
+    window.GitHubSync.test().then(function (res) {
+      var note = res.defaultBranch ? (" Default branch: " + res.defaultBranch + ".") : "";
+      var cfg = window.GitHubSync.getConfig();
+      var mismatch = res.defaultBranch && cfg.branch && res.defaultBranch !== cfg.branch
+        ? " (you're targeting '" + cfg.branch + "')" : "";
+      setGhStatus("✓ Connected." + note + mismatch);
+      refreshGhButtons();
+    }).catch(function (e) {
+      setGhStatus("✗ " + e.message, true);
+    });
+  }
+
+  function ghClearToken() {
+    window.GitHubSync.clearToken();
+    $("#ghToken").value = "";
+    refreshGhButtons();
+    setGhStatus("Token cleared from this browser.");
+  }
+
   /* ---------------- event wiring ---------------- */
 
   function onClick(e) {
@@ -440,6 +541,12 @@
         case "export-json": return exportJson();
         case "import-json": return $("#importFile").click();
         case "reload-json": return reloadFromRepo();
+        case "commit-github": return commitToGitHub();
+        case "open-gh-settings": return openGhSettings();
+        case "gh-cancel": return $("#ghDialog").close();
+        case "gh-test": return ghTest();
+        case "gh-save": return ghSave();
+        case "gh-clear-token": return ghClearToken();
         case "prompt-summary": return copyPrompt("summary", "Executive summary");
         case "prompt-actions": return copyPrompt("actions", "Action items");
         case "prompt-email": return copyPrompt("email", "Status email");
@@ -480,6 +587,8 @@
   function boot() {
     document.addEventListener("click", onClick);
     $("#editorForm").addEventListener("submit", saveEditor);
+    $("#ghForm").addEventListener("submit", function (e) { e.preventDefault(); ghSave(); });
+    refreshGhButtons();
     $("#importFile").addEventListener("change", function () {
       if (this.files && this.files[0]) importJson(this.files[0]);
       this.value = "";
