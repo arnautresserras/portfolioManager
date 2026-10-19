@@ -2,26 +2,75 @@
   "report": {
     "title": "Digitalization Portfolio — Status Report",
     "week": 28,
-    "date": "2026-07-09",
+    "date": "2026-10-19",
     "weeklyGoals": [
-      { "id": "g1", "text": "Close QMS UAT sign-off and lock the June go-live plan", "initiativeId": "queue-management-system", "done": false },
-      { "id": "g2", "text": "Get a dedicated IPQ diagnostic session booked before the next HR Fiori user test", "initiativeId": "hr-payroll-fiori", "done": false },
-      { "id": "g3", "text": "Secure business approval of the IBPROM v4 FSD and confirm budget", "initiativeId": "ibprom-v4", "done": false }
+      {
+        "id": "g1",
+        "text": "Close QMS UAT sign-off and lock the June go-live plan",
+        "initiativeId": "queue-management-system",
+        "done": false
+      },
+      {
+        "id": "g2",
+        "text": "Get a dedicated IPQ diagnostic session booked before the next HR Fiori user test",
+        "initiativeId": "hr-payroll-fiori",
+        "done": false
+      },
+      {
+        "id": "g3",
+        "text": "Secure business approval of the IBPROM v4 FSD and confirm budget",
+        "initiativeId": "ibprom-v4",
+        "done": false
+      }
     ]
   },
   "sections": [
-    { "id": "ibprom", "name": "IBPROM PLATFORM" },
-    { "id": "hr-payroll", "name": "HR PAYROLL DIGITALIZATION" },
-    { "id": "logistics", "name": "LOGISTICS & TRUCK MANAGEMENT" },
-    { "id": "sap-logistics", "name": "SAP LOGISTICS — REGULATORY DIGITIZATION" },
-    { "id": "process-automation", "name": "PROCESS AUTOMATION" },
-    { "id": "cross-system", "name": "CROSS-SYSTEM INTEGRATION" }
+    {
+      "id": "ibprom",
+      "name": "IBPROM PLATFORM"
+    },
+    {
+      "id": "hr-payroll",
+      "name": "HR PAYROLL DIGITALIZATION"
+    },
+    {
+      "id": "logistics",
+      "name": "LOGISTICS & TRUCK MANAGEMENT"
+    },
+    {
+      "id": "sap-logistics",
+      "name": "SAP LOGISTICS — REGULATORY DIGITIZATION"
+    },
+    {
+      "id": "process-automation",
+      "name": "PROCESS AUTOMATION"
+    },
+    {
+      "id": "cross-system",
+      "name": "CROSS-SYSTEM INTEGRATION"
+    }
   ],
   "statusCategories": [
-    { "id": "live", "label": "Live", "color": "2E6611" },
-    { "id": "live-attn", "label": "Attention", "color": "BA7517" },
-    { "id": "in-progress", "label": "In progress", "color": "854F0B" },
-    { "id": "planned", "label": "Planned", "color": "5F5E5A" }
+    {
+      "id": "live",
+      "label": "Live",
+      "color": "2E6611"
+    },
+    {
+      "id": "live-attn",
+      "label": "Attention",
+      "color": "BA7517"
+    },
+    {
+      "id": "in-progress",
+      "label": "In progress",
+      "color": "854F0B"
+    },
+    {
+      "id": "planned",
+      "label": "Planned",
+      "color": "5F5E5A"
+    }
   ],
   "initiatives": [
     {
@@ -63,8 +112,8 @@
       "sectionId": "ibprom",
       "order": 3,
       "name": "IBPROM Geology",
-      "statusCategory": "live",
-      "statusLabel": "Live",
+      "statusCategory": "live-attn",
+      "statusLabel": "BLOCKED",
       "keySignal": "Full 2026 data entry in progress",
       "statusLine": "LIVE — Go-live executed; full 2026 data entry in progress",
       "detailBullets": [
@@ -268,16 +317,16 @@
       "sectionId": "logistics",
       "order": 2,
       "name": "Truck Portal — AWS Cognito Auth Migration",
-      "statusCategory": "in-progress",
-      "statusLabel": "Ready for rollout",
-      "keySignal": "Built and documented; rollout to users pending",
-      "statusLine": "Documentation complete — migration built, not yet rolled out to users",
+      "statusCategory": "live",
+      "statusLabel": "Live",
+      "keySignal": "Rolled out to all users.",
+      "statusLine": "Live",
       "detailBullets": [
         "Authentication migrated from the previous scheme to AWS Cognito with email-based one-time codes",
         "User communication and supporting documentation completed in Spanish"
       ],
       "nextSteps": [
-        "Schedule and execute rollout to users"
+        "Monitor performance"
       ]
     },
     {
@@ -285,10 +334,10 @@
       "sectionId": "logistics",
       "order": 3,
       "name": "Queue Management System (Suria Plant)",
-      "statusCategory": "in-progress",
-      "statusLabel": "UAT",
-      "keySignal": "UAT underway; targeting June 2026 go-live",
-      "statusLine": "UAT — Development completed; UAT underway ahead of June 2026 go-live",
+      "statusCategory": "live",
+      "statusLabel": "Deploying to production",
+      "keySignal": "Deployment to production today",
+      "statusLine": "Deployment to production completed today",
       "detailBullets": [
         "API contract closed and mock APIs delivered by VIDMAR as committed; development completed on that foundation",
         "Azure infrastructure session completed; VIDMAR server deployed in Azure",
@@ -297,8 +346,7 @@
         "UAT sessions in progress with VIDMAR and ICL dev team"
       ],
       "nextSteps": [
-        "Complete UAT sign-off; prepare for go-live",
-        "Target: June 2026 go-live"
+        "Monitor go-live"
       ]
     },
     {
@@ -316,24 +364,6 @@
       ],
       "nextSteps": [
         "Prioritize against QMS core delivery; begin build once scheduled"
-      ]
-    },
-    {
-      "id": "sap-dca-simple",
-      "sectionId": "sap-logistics",
-      "order": 1,
-      "name": "DCA Digitization — Plataforma SIMPLE Integration",
-      "statusCategory": "planned",
-      "statusLabel": "Architecture / pending gate",
-      "keySignal": "Public-URL API question delegated to SAP team; Oct 2026 deadline",
-      "statusLine": "Architecture defined — critical integration question outstanding; regulatory deadline October 2026",
-      "detailBullets": [
-        "Mandatory digitization of the Documento de Control Administrativo (DCA) applies from October 2026; architecture favors a middleware-over-SAP approach integrating with Plataforma SIMPLE, the free Ministry of Transport-backed platform",
-        "Critical open question: whether SIMPLE's Documentation API serves QR-linked documents via a public, unauthenticated URL — required by regulation. Question has been delegated to the SAP team for follow-up with SIMPLE support; no reply yet",
-        "Entity registration on SIMPLE not yet started — pending an FNMT digital representation certificate; Integration Kit download still to be requested"
-      ],
-      "nextSteps": [
-        "Follow up on the SIMPLE public-URL question; secure FNMT certificate and register the entity; download Integration Kit once registered"
       ]
     },
     {
@@ -362,17 +392,17 @@
       "sectionId": "cross-system",
       "order": 1,
       "name": "IBPROM – SAP HR Middleware",
-      "statusCategory": "planned",
-      "statusLabel": "Pending scope",
+      "statusCategory": "in-progress",
+      "statusLabel": "FSDI in progress",
       "keySignal": "Master data not synced; SAP needs to be source of truth",
-      "statusLine": "Pending scope — master data synchronization gap identified between IBPROM and SAP HR",
+      "statusLine": "Writing FSDI — master data synchronization gap identified between IBPROM and SAP HR",
       "detailBullets": [
         "IBPROM and SAP HR are already connected via middleware for payroll data, but master data between the two systems is not synchronized",
         "Target design: SAP master data should become the source of truth in both systems, removing the current inconsistency risk",
         "Strategic importance: this project is a key unlock for IBPROM Shift Handover, since it enables the personnel management capability that initiative needs to deliver real value"
       ],
       "nextSteps": [
-        "Scope the master-data synchronization approach; align with SAP HR team on source-of-truth model; sequence against Shift Handover rescoping"
+        "Complete FSDI and get cost estimate from relevant teams"
       ]
     }
   ]
