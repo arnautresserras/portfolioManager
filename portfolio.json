@@ -1,8 +1,8 @@
 {
   "report": {
     "title": "Digitalization Portfolio — Status Report",
-    "week": 28,
-    "date": "2026-10-19",
+    "week": 43,
+    "date": "2026-10-21",
     "weeklyGoals": [
       {
         "id": "g1",
@@ -48,6 +48,14 @@
     {
       "id": "cross-system",
       "name": "CROSS-SYSTEM INTEGRATION"
+    },
+    {
+      "id": "ai-brd",
+      "name": "AI BRD"
+    },
+    {
+      "id": "elevate",
+      "name": "ELEVATE"
     }
   ],
   "statusCategories": [
@@ -404,6 +412,193 @@
       "nextSteps": [
         "Complete FSDI and get cost estimate from relevant teams"
       ]
+    },
+    {
+      "name": "POGO",
+      "sectionId": "ai-brd",
+      "statusCategory": "planned",
+      "statusLabel": "BRD Complete",
+      "keySignal": "BRD completed",
+      "statusLine": "Pending technical specification",
+      "detailBullets": [
+        "BRD Completed",
+        "Business case and value well defined",
+        "Data needs clear"
+      ],
+      "nextSteps": [
+        "Handoff to Itay and technical team for scoping."
+      ],
+      "id": "pogo",
+      "order": 1
+    },
+    {
+      "name": "PotashAI",
+      "sectionId": "ai-brd",
+      "statusCategory": "planned",
+      "statusLabel": "BRD COMPLETE",
+      "keySignal": "BRD Completed and delivered to IT",
+      "statusLine": "Pending technical specification",
+      "detailBullets": [
+        "BRD Completed",
+        "KPIs defined",
+        "Business value identified",
+        "Technical scope is HUGE"
+      ],
+      "nextSteps": [
+        "Handoff to Itay and architecture for technical specification."
+      ],
+      "id": "potashai",
+      "order": 2
+    },
+    {
+      "name": "AI-Powered plant digital twin",
+      "sectionId": "elevate",
+      "statusCategory": "in-progress",
+      "statusLabel": "ELEVATE L4",
+      "keySignal": "In development via external provider.",
+      "statusLine": "In development via external provider",
+      "detailBullets": [],
+      "nextSteps": [
+        "Monitor progress"
+      ],
+      "id": "ai-powered-plant-digital-twin",
+      "order": 1
+    },
+    {
+      "name": "Strengthened contractor performance control",
+      "sectionId": "elevate",
+      "statusCategory": "planned",
+      "statusLabel": "Pending meeting",
+      "keySignal": "Project pending IT requirements meeting",
+      "statusLine": "Project pending IT requirements meeting",
+      "detailBullets": [],
+      "nextSteps": [
+        "Schedule a meeting with Rubén Cayuela to review project needs and requirements"
+      ],
+      "id": "strengthened-contractor-performance-control",
+      "order": 2
+    },
+    {
+      "name": "Mine - Labor - Integrated shift supervision",
+      "sectionId": "elevate",
+      "statusCategory": "planned",
+      "statusLabel": "Pending meeting",
+      "keySignal": "Project pending IT requirements meeting",
+      "statusLine": "Project pending IT requirements meeting",
+      "detailBullets": [],
+      "nextSteps": [
+        "Schedule a meeting with Danilo Catalán to review project needs and requirements"
+      ],
+      "id": "mine-labor-integrated-shift-supervision",
+      "order": 3
+    },
+    {
+      "name": "Miners Production Week – Operational Awareness Dashboard",
+      "sectionId": "elevate",
+      "statusCategory": "planned",
+      "statusLabel": "Pending stakeholder meeting",
+      "keySignal": "Pending stakeholder meeting",
+      "statusLine": "Pending stakeholder meeting",
+      "detailBullets": [],
+      "nextSteps": [
+        "Schedule a meeting with Anna Forch to review project requirements."
+      ],
+      "id": "miners-production-week-operational-awareness-das",
+      "order": 4
+    },
+    {
+      "name": "Digitize the truck loading process to eliminate the need for weighbridge personnel",
+      "sectionId": "elevate",
+      "statusCategory": "planned",
+      "statusLabel": "Pending handoff",
+      "keySignal": "Project documented and handoff ready to be delivered",
+      "statusLine": "Handoff documentation ready to deliver",
+      "detailBullets": [],
+      "nextSteps": [
+        "Schedule call with Global IT for handoff and estimation."
+      ],
+      "id": "digitize-the-truck-loading-process-to-eliminate-",
+      "order": 5
+    },
+    {
+      "name": "GPO Dashboard (#25961)",
+      "sectionId": "ibprom",
+      "statusCategory": "live",
+      "statusLabel": "Live (blocked)",
+      "keySignal": "Dashboard is built but requires a lot of manual maintenance",
+      "statusLine": "Dashboard built, needs manual data entry. The project needs data automation.",
+      "detailBullets": [
+        "PowerBI Dashboard is build, but requires manual data uploads.",
+        "Project needs automated data uploads to a repository or scheduled SAP data reads.",
+        "Overlap with GPO chatbot."
+      ],
+      "nextSteps": [
+        "Review GPO chatbot roadmap and evaluate project cancellation."
+      ],
+      "id": "gpo-dashboard-25961",
+      "order": 10
+    },
+    {
+      "name": "Digitalization of Attendance Tracking for Corporate Training Sessions",
+      "sectionId": "elevate",
+      "statusCategory": "planned",
+      "statusLabel": "Pending handoff",
+      "keySignal": "Project needs are clear and identified, handoff to Global pending",
+      "statusLine": "Project is documented and clear, pending handoff to Global IT",
+      "detailBullets": [
+        "SSFF manual data entry is a BIG painpoint for training.",
+        "Mine regulations in Spain are VERY strict, there are continuous training sessions for personnel that the HR team is legally required to track.",
+        "The process is completely manual and requires A LOT of data entry work."
+      ],
+      "nextSteps": [
+        "Handoff requirements to global IT and look for automations wherever possible."
+      ],
+      "id": "digitalization-of-attendance-tracking-for-corpor",
+      "order": 6
+    },
+    {
+      "name": "Checklists digitalization",
+      "sectionId": "elevate",
+      "statusCategory": "live",
+      "statusLabel": "Live (blocked)",
+      "keySignal": "Base44 app is implemented, but cannot be deployed",
+      "statusLine": "Base 44 deployment process is unclear, app is done but cannot be used.",
+      "detailBullets": [
+        "Base44 app that tracks plant maintentance and daily workflows."
+      ],
+      "nextSteps": [
+        "Documentation is done, pending handoff with Global IT"
+      ],
+      "id": "checklists-digitalization",
+      "order": 7
+    },
+    {
+      "name": "Use AI-driven analysis of process data to predict and prevent equipment failures",
+      "sectionId": "elevate",
+      "statusCategory": "planned",
+      "statusLabel": "Pending business definition",
+      "keySignal": "Mirrors AI-powered digital twin for the plant",
+      "statusLine": "Pending complete business definition",
+      "detailBullets": [],
+      "nextSteps": [
+        "Await for final business definition"
+      ],
+      "id": "use-ai-driven-analysis-of-process-data-to-predic",
+      "order": 8
+    },
+    {
+      "name": "Use Base44 tool to create a tracking system of the state of the mining machinery",
+      "sectionId": "elevate",
+      "statusCategory": "planned",
+      "statusLabel": "Pending deployment",
+      "keySignal": "Pending meeting with stakeholders",
+      "statusLine": "Pending meeting with stakeholders",
+      "detailBullets": [],
+      "nextSteps": [
+        "Schedule a meeting with Pietro to discuss current status and next steps."
+      ],
+      "id": "use-base44-tool-to-create-a-tracking-system-of-t",
+      "order": 9
     }
   ]
 }
