@@ -21,10 +21,10 @@
       .replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "").slice(0, 48) || "item";
   }
 
-  function uniqueId(base) {
+  function uniqueId(base, list) {
     var id = base, n = 1;
     var ids = {};
-    (state.initiatives || []).forEach(function (i) { ids[i.id] = true; });
+    (list || []).forEach(function (i) { ids[i.id] = true; });
     while (ids[id]) { id = base + "-" + (++n); }
     return id;
   }
@@ -321,16 +321,37 @@
 
   /* ---------------- editor dialog ---------------- */
 
+  var NEW_SECTION = "__new__";
+  var lastSectionId = "";
+
+  function fillSectionSelect(selectedId) {
+    var secSel = $("#fSection");
+    secSel.innerHTML = state.sections.map(function (s) {
+      return '<option value="' + esc(s.id) + '">' + esc(s.name) + '</option>';
+    }).join("") + '<option value="' + NEW_SECTION + '">+ New section…</option>';
+    secSel.value = selectedId;
+    lastSectionId = selectedId;
+  }
+
+  function onSectionChange() {
+    var sel = $("#fSection");
+    if (sel.value !== NEW_SECTION) { lastSectionId = sel.value; return; }
+    var name = (window.prompt("New section name") || "").trim();
+    if (!name) { sel.value = lastSectionId; return; }
+    var sec = { id: uniqueId(slugify(name), state.sections), name: name.toUpperCase() };
+    state.sections.push(sec);
+    markDirty();
+    renderSections();
+    fillSectionSelect(sec.id);
+  }
+
   function openEditor(id) {
     editingId = id || null;
     var dlg = $("#editorDialog");
     var it = id ? state.initiatives.find(function (x) { return x.id === id; }) : null;
 
     // populate selects
-    var secSel = $("#fSection");
-    secSel.innerHTML = state.sections.map(function (s) {
-      return '<option value="' + esc(s.id) + '">' + esc(s.name) + '</option>';
-    }).join("");
+    fillSectionSelect(it ? it.sectionId : state.sections[0].id);
     var catSel = $("#fCategory");
     catSel.innerHTML = state.statusCategories.map(function (c) {
       return '<option value="' + esc(c.id) + '">' + esc(c.label) + ' (' + esc(c.color) + ')</option>';
@@ -338,7 +359,6 @@
 
     $("#editorTitle").textContent = it ? "Edit initiative" : "Add initiative";
     $("#fName").value = it ? it.name : "";
-    $("#fSection").value = it ? it.sectionId : state.sections[0].id;
     $("#fCategory").value = it ? it.statusCategory : state.statusCategories[0].id;
     $("#fStatusLabel").value = it ? (it.statusLabel || "") : "";
     $("#fKeySignal").value = it ? (it.keySignal || "") : "";
@@ -381,7 +401,7 @@
         reindex(oldSection);
       }
     } else {
-      data.id = uniqueId(slugify(name));
+      data.id = uniqueId(slugify(name), state.initiatives);
       data.order = itemsOf(data.sectionId).length + 1;
       state.initiatives.push(data);
     }
@@ -662,6 +682,7 @@
   function boot() {
     document.addEventListener("click", onClick);
     $("#editorForm").addEventListener("submit", saveEditor);
+    $("#fSection").addEventListener("change", onSectionChange);
     $("#ghForm").addEventListener("submit", function (e) { e.preventDefault(); ghSave(); });
     refreshGhButtons();
     $("#importFile").addEventListener("change", function () {
