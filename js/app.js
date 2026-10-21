@@ -29,6 +29,19 @@
     return id;
   }
 
+  function todayIso() {
+    var d = new Date();
+    return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0");
+  }
+
+  function isoWeek(iso) {
+    var p = iso.split("-");
+    var d = new Date(Date.UTC(+p[0], +p[1] - 1, +p[2]));
+    d.setUTCDate(d.getUTCDate() + 4 - (d.getUTCDay() || 7)); // Thursday of this ISO week
+    var yearStart = Date.UTC(d.getUTCFullYear(), 0, 1);
+    return Math.ceil(((d - yearStart) / 86400000 + 1) / 7);
+  }
+
   function fmtDate(iso) {
     if (!iso) return "";
     var p = iso.split("-");
@@ -465,11 +478,21 @@
       Array.isArray(d.statusCategories) && Array.isArray(d.initiatives);
   }
 
+  function applyToday() {
+    var today = todayIso();
+    if (state.report.date && state.report.date >= today) return;
+    state.report.date = today;
+    state.report.week = isoWeek(today);
+    markDirty();
+    toast("Report date set to today (Week " + state.report.week + ")");
+  }
+
   function reloadFromRepo() {
     if (dirty && !window.confirm("Discard local edits and reload portfolio.json from the repo?")) return;
     fetchRepoJson().then(function (data) {
       state = data;
       clearDirty();
+      applyToday();
       render();
       toast("Reloaded from portfolio.json");
     }).catch(function (e) {
@@ -675,6 +698,7 @@
     });
     $("#metaDate").addEventListener("input", function () {
       state.report.date = this.value;
+      if (this.value) state.report.week = isoWeek(this.value);
       renderMeta(); markDirty();
     });
   }
@@ -708,6 +732,7 @@
     var cached = loadFromStorage();
     if (cached && validate(cached)) {
       state = cached;
+      applyToday();
       wireMeta();
       render();
       dirty = true;
@@ -718,6 +743,7 @@
 
     fetchRepoJson().then(function (data) {
       state = data;
+      applyToday();
       wireMeta();
       render();
     }).catch(function (e) {
@@ -734,6 +760,7 @@
         ],
         initiatives: []
       };
+      applyToday();
       wireMeta();
       render();
     });
